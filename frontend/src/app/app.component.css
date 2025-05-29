@@ -1,0 +1,252 @@
+.contenedor-app {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 1.8em;
+}
+
+header button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95em;
+}
+header button:hover {
+  background-color: #2980b9;
+}
+header p { 
+    color: #7f8c8d;
+    font-size: 0.9em;
+    margin: 0;
+}
+
+
+.seccion-formulario {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 6px;
+  border: 1px solid #ecf0f1;
+  margin-bottom: 30px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+}
+
+.seccion-formulario h2 {
+  color: #34495e;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.campo-form {
+  margin-bottom: 15px;
+}
+
+.campo-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  font-weight: bold;
+}
+
+.campo-form input[type="text"],
+.campo-form textarea,
+.campo-form select {
+  width: 100%; 
+  padding: 10px;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box; 
+}
+.campo-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.acciones-form {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.acciones-form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-left: 10px;
+}
+
+.acciones-form button[type="submit"] {
+  background-color: #2ecc71;
+  color: white;
+}
+.acciones-form button[type="submit"]:hover {
+  background-color: #27ae60;
+}
+
+.acciones-form button[type="button"] { 
+  background-color: #e74c3c;
+  color: white;
+}
+.acciones-form button[type="button"]:hover {
+  background-color: #c0392b;
+}
+
+
+.seccion-listado h2 {
+  color: #34495e;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+.controles-paginacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+}
+
+.controles-paginacion button {
+  padding: 8px 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.controles-paginacion button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.controles-paginacion button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.controles-paginacion span {
+  font-weight: bold;
+  color: #2c3e50;
+  font-size: 0.95em;
+}
+
+
+.idea-item {
+  background-color: #ffffff;
+  padding: 15px;
+  border: 1px solid #ecf0f1;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.idea-item h3 {
+  margin-top: 0;
+  color: #2980b9;
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+
+.idea-item p {
+  margin: 8px 0;
+  color: #34495e;
+  line-height: 1.6;
+  font-size: 0.95em;
+}
+.idea-item p.descripcion-idea {
+    color: #7f8c8d;
+    font-style: normal;
+    margin-bottom: 12px;
+}
+
+.idea-item strong {
+    color: #2c3e50;
+}
+
+.estado-idea {
+    display: inline-block; 
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: white;
+    text-transform: capitalize;
+}
+
+.estado-borrador    { background-color: #95a5a6; }
+.estado-validando   { background-color: #f39c12; } 
+.estado-aprobada    { background-color: #2ecc71; } 
+.estado-descartada  { background-color: #e74c3c; } 
+.estado-implementada{ background-color: #3498db; } 
+
+
+.acciones-idea {
+  margin-top: 15px;
+  text-align: right;
+}
+
+.acciones-idea button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-left: 8px;
+  background-color: #bdc3c7; 
+  color: #2c3e50;
+}
+.acciones-idea button:hover {
+  opacity: 0.85;
+}
+
+.acciones-idea button.boton-eliminar {
+  background-color: #e74c3c;
+  color: white;
+}
+.acciones-idea button.boton-eliminar:hover {
+  background-color: #c0392b;
+}
+
+.idea-item-vacio {
+    text-align: center;
+    padding: 20px;
+    color: #bdc3c7;
+    font-style: italic;
+    border: 1px dashed #ecf0f1;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    background-color: #fdfdfd;
+}
+
+[hidden] {
+  display: none !important;
+}

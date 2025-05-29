@@ -1,0 +1,115 @@
+<div class="contenedor-app">
+  <header>
+    <h1>{{ titulo }}</h1>
+    <button (click)="formulario_nueva_idea()" [hidden]="mostrar_formulario">
+      + Nueva Idea de Negocio
+    </button>
+  </header>
+
+  <div class="seccion-formulario" [hidden]="!mostrar_formulario">
+    <h2>{{ modo_edicion ? 'Editar Idea' : 'Registrar Nueva Idea' }}</h2>
+    <form (submit)="$event.preventDefault(); guardar_idea()">
+      <div class="campo-form">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" [value]="form_titulo" (input)="actualizar_titulo($event)" required>
+      </div>
+      <div class="campo-form">
+        <label for="descripcion">Descripción Detallada:</label>
+        <textarea id="descripcion" rows="4" [value]="form_descripcion" (input)="actualizar_descripcion($event)" required></textarea>
+      </div>
+      <div class="campo-form">
+        <label for="categoria">Categoría:</label>
+        <select id="categoria" [value]="form_categoria" (change)="actualizar_categoria($event)">
+          <option value="Tecnología">Tecnología</option>
+          <option value="Salud">Salud</option>
+          <option value="Educación">Educación</option>
+          <option value="Finanzas">Finanzas</option>
+          <option value="Social">Social</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+      <div class="campo-form">
+        <label for="estado">Estado:</label>
+        <select id="estado" [value]="form_estado" (change)="actualizar_estado($event)">
+          <option value="Borrador">Borrador</option>
+          <option value="Validando">Validando</option>
+          <option value="Aprobada">Aprobada</option>
+          <option value="Descartada">Descartada</option>
+          <option value="Implementada">Implementada</option>
+        </select>
+      </div>
+      <div class="campo-form">
+        <label for="innovacion">Nivel de Innovación (Opcional):</label>
+        <input type="text" id="innovacion" [value]="form_innovacion" (input)="actualizar_innovacion($event)">
+      </div>
+      <div class="campo-form">
+        <label for="publico">Público Objetivo (Opcional):</label>
+        <input type="text" id="publico" [value]="form_publico_objetivo" (input)="actualizar_publico_objetivo($event)">
+      </div>
+      <div class="acciones-form">
+        <button type="submit">{{ modo_edicion ? 'Actualizar Idea' : 'Guardar Nueva Idea' }}</button>
+        <button type="button" (click)="cerrar_formulario()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="seccion-listado" [hidden]="mostrar_formulario">
+    <h2>Ideas Registradas</h2>
+    <div class="controles-paginacion" [hidden]="total_paginas <= 1">
+      <button (click)="anterior_pagina()" [disabled]="pagina_actual === 0">Anterior</button>
+      <span>Página {{ pagina_actual + 1 }} de {{ total_paginas === 0 ? 1 : total_paginas }}</span>
+      <button (click)="siguiente_pagina()" [disabled]="pagina_actual >= total_paginas - 1 || total_paginas === 0">Siguiente</button>
+    </div>
+
+    <div [hidden]="idea_slot_1 || idea_slot_2 || idea_slot_3 || gestor.ideas.length > 0"> <p>Aún no hay ideas registradas. ¡Anímate a crear la primera!</p>
+    </div>
+
+    <div class="idea-item" [hidden]="!idea_slot_1">
+      <h3 [hidden]="!idea_slot_1">{{ idea_slot_1?.titulo }}</h3>
+      <p [hidden]="!idea_slot_1"><strong>Categoría:</strong> {{ idea_slot_1?.categoria }}</p>
+      <p [hidden]="!idea_slot_1"><strong>Estado:</strong> <span class="estado-idea estado-{{idea_slot_1?.estado}}">{{ idea_slot_1?.estado }}</span></p>
+      <p [hidden]="!idea_slot_1" class="descripcion-idea"><em>{{ idea_slot_1?.descripcion }}</em></p>
+      <p [hidden]="!idea_slot_1 || !idea_slot_1?.innovacion"><strong>Innovación:</strong> {{ idea_slot_1?.innovacion }}</p>
+      <p [hidden]="!idea_slot_1 || !idea_slot_1?.publico"><strong>Público:</strong> {{ idea_slot_1?.publico }}</p>
+      <div class="acciones-idea" [hidden]="!idea_slot_1">
+        <button (click)="formulario_editar_idea(idea_slot_1?.id)">Editar</button>
+        <button (click)="eliminar_idea(idea_slot_1?.id)" class="boton-eliminar">Eliminar</button>
+      </div>
+    </div>
+    <div class="idea-item-vacio" [hidden]="idea_slot_1 || (total_paginas > 0 && (pagina_actual * TAMANO_PAGINA + 0) < gestor.ideas.length) || gestor.ideas.length === 0">
+        <p>(No hay más ideas para mostrar en esta página)</p>
+    </div>
+
+
+    <div class="idea-item" [hidden]="!idea_slot_2">
+      <h3 [hidden]="!idea_slot_2">{{ idea_slot_2?.titulo }}</h3>
+      <p [hidden]="!idea_slot_2"><strong>Categoría:</strong> {{ idea_slot_2?.categoria }}</p>
+      <p [hidden]="!idea_slot_2"><strong>Estado:</strong> <span class="estado-idea estado-{{idea_slot_2?.estado}}">{{ idea_slot_2?.estado }}</span></p>
+      <p [hidden]="!idea_slot_2" class="descripcion-idea"><em>{{ idea_slot_2?.descripcion }}</em></p>
+      <p [hidden]="!idea_slot_2 || !idea_slot_2?.innovacion"><strong>Innovación:</strong> {{ idea_slot_2?.innovacion }}</p>
+      <p [hidden]="!idea_slot_2 || !idea_slot_2?.publico"><strong>Público:</strong> {{ idea_slot_2?.publico }}</p>
+      <div class="acciones-idea" [hidden]="!idea_slot_2">
+        <button (click)="formulario_editar_idea(idea_slot_2?.id)">Editar</button>
+        <button (click)="eliminar_idea(idea_slot_2?.id)" class="boton-eliminar">Eliminar</button>
+      </div>
+    </div>
+    <div class="idea-item-vacio" [hidden]="idea_slot_2 || (total_paginas > 0 && (pagina_actual * TAMANO_PAGINA + 1) < gestor.ideas.length) || gestor.ideas.length === 0 || (pagina_actual * TAMANO_PAGINA + 0) >= gestor.ideas.length">
+        <p>(No hay más ideas para mostrar en esta página)</p>
+    </div>
+
+    <div class="idea-item" [hidden]="!idea_slot_3">
+      <h3 [hidden]="!idea_slot_3">{{ idea_slot_3?.titulo }}</h3>
+      <p [hidden]="!idea_slot_3"><strong>Categoría:</strong> {{ idea_slot_3?.categoria }}</p>
+      <p [hidden]="!idea_slot_3"><strong>Estado:</strong> <span class="estado-idea estado-{{idea_slot_3?.estado}}">{{ idea_slot_3?.estado }}</span></p>
+      <p [hidden]="!idea_slot_3" class="descripcion-idea"><em>{{ idea_slot_3?.descripcion }}</em></p>
+      <p [hidden]="!idea_slot_3 || !idea_slot_3?.innovacion"><strong>Innovación:</strong> {{ idea_slot_3?.innovacion }}</p>
+      <p [hidden]="!idea_slot_3 || !idea_slot_3?.publico"><strong>Público:</strong> {{ idea_slot_3?.publico }}</p>
+      <div class="acciones-idea" [hidden]="!idea_slot_3">
+        <button (click)="formulario_editar_idea(idea_slot_3?.id)">Editar</button>
+        <button (click)="eliminar_idea(idea_slot_3?.id)" class="boton-eliminar">Eliminar</button>
+      </div>
+    </div>
+     <div class="idea-item-vacio" [hidden]="idea_slot_3 || (total_paginas > 0 && (pagina_actual * TAMANO_PAGINA + 2) < gestor.ideas.length) || gestor.ideas.length === 0 || (pagina_actual * TAMANO_PAGINA + 1) >= gestor.ideas.length">
+        <p>(No hay más ideas para mostrar en esta página)</p>
+    </div>
+</div>
